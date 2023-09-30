@@ -1,0 +1,36 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd
+
+spec:
+  selector:
+    matchLabels:
+      app: http
+  template:
+    metadata:
+      labels:
+        app: http
+    spec:
+      containers:
+      - name: http
+        image: httpd
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: met-http
+
+spec:
+  ports:
+  - name: n1
+    port: 80
+    protocol: TCP
+  selector:
+    app: http
+  type: LoadBalancer
