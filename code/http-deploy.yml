@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dep-http
+  labels:
+    env: prod
+
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      env: dep-http
+  template:
+    metadata:
+      name: dep-http
+      labels:
+         env: dep-http
+    spec:
+      containers:
+      - name: http
+        image: httpd
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 80
